@@ -66,7 +66,6 @@ class ChangeTextTest {
     }
 
     @Test
-    // этот тест почему-то не проходит
     fun testEmptyInputDoesNotChangeText() {
         val packageName = MODEL_PACKAGE
         waitForPackage(packageName)
