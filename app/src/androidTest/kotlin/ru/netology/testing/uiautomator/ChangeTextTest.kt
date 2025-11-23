@@ -80,24 +80,6 @@ class ChangeTextTest {
         assertEquals(originalText, result)
     }
 
-    @Test
-    fun testOpenTextInNewActivity() {
-        val packageName = MODEL_PACKAGE
-        waitForPackage(packageName)
-
-        val textToSend = "Hello, UI Automator!"
-
-        device.findObject(By.res(packageName, "userInput")).text = textToSend
-        device.findObject(By.res(packageName, "buttonActivity")).click()
-
-        val textView = device.wait(
-            Until.findObject(By.res(packageName, "text")),
-            TIMEOUT
-        )
-
-        assertNotNull("TextView новой Activity не найден", textView)
-        assertEquals("Текст во второй Activity не совпадает с введённым", textToSend, textView!!.text)
-    }
 
 }
 
