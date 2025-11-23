@@ -65,21 +65,26 @@ class ChangeTextTest {
         assertEquals(result, textToSet)
     }
 
+   
+
     @Test
-    fun testEmptyInputDoesNotChangeText() {
+    fun testOpenTextInNewActivity() {
         val packageName = MODEL_PACKAGE
         waitForPackage(packageName)
 
-        val textView = device.findObject(By.res(packageName, "textToBeChanged"))
-        val originalText = textView.text
+        val textToSend = "Hello, UI Automator!"
 
-        device.findObject(By.res(packageName, "userInput")).text = "   "
-        device.findObject(By.res(packageName, "buttonChange")).click()
+        device.findObject(By.res(packageName, "userInput")).text = textToSend
+        device.findObject(By.res(packageName, "buttonActivity")).click()
 
-        val result = textView.text
-        assertEquals(originalText, result)
+        val textView = device.wait(
+            Until.findObject(By.res(packageName, "text")),
+            TIMEOUT
+        )
+
+        assertNotNull("TextView в новой Activity не найден", textView)
+        assertEquals("Текст во второй Activity не совпадает с введённым", textToSend, textView!!.text)
     }
-
 
 }
 
