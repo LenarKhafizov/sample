@@ -65,7 +65,21 @@ class ChangeTextTest {
         assertEquals(result, textToSet)
     }
 
-   
+    @Test
+    // этот тест почему-то не проходит
+    fun testEmptyInputDoesNotChangeText() {
+        val packageName = MODEL_PACKAGE
+        waitForPackage(packageName)
+
+        val textView = device.findObject(By.res(packageName, "textToBeChanged"))
+        val originalText = textView.text
+
+        device.findObject(By.res(packageName, "userInput")).text = ""
+        device.findObject(By.res(packageName, "buttonChange")).click()
+
+        val result = textView.text
+        assertEquals(originalText, result)
+    }
 
     @Test
     fun testOpenTextInNewActivity() {
